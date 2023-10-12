@@ -133,11 +133,12 @@ export default class Repository {
     getAll(HttpContext) {
         let objectsList = this.objects();
         let bindedDatas = [];
-        CollectionFilter.Filter(HttpContext);
+        
         if (objectsList)
             for (let data of objectsList) {
                 bindedDatas.push(this.model.bindExtraData(data));
             };
+        bindedDatas = CollectionFilter.Filter(bindedDatas,HttpContext);
         return bindedDatas;
     }
     get(id) {
