@@ -135,12 +135,26 @@ export default class Repository {
         let bindedDatas = [];
         
         if (objectsList)
+        {
             for (let data of objectsList) {
                 bindedDatas.push(this.model.bindExtraData(data));
             };
+        }
+
+
+            
+        //for(let i=0;i<Object.keys(HttpContext.path.params).length;i++){
+        //    if(Object.keys(HttpContext.path.params)[i] != "limit" ||Object.keys(HttpContext.path.params)[i] != "offset" ||
+        //    Object.keys(HttpContext.path.params)[i] != "fields" || Object.keys(HttpContext.path.params)[i] != "sort")
+         //   {
+    
+          //  }
+        //}
+
         bindedDatas = CollectionFilter.Filter(bindedDatas,HttpContext);
         return bindedDatas;
     }
+
     get(id) {
         for (let object of this.objects()) {
             if (object.Id === id) {
@@ -149,6 +163,7 @@ export default class Repository {
         }
         return null;
     }
+
     removeByIndex(indexToDelete) {
         if (indexToDelete.length > 0) {
             utilities.deleteByIndex(this.objects(), indexToDelete);

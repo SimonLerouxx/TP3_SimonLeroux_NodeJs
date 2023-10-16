@@ -9,12 +9,39 @@ export default class CollectionFilter {
         //console.log(bindedDatas[0])
         let modifiedDatas = bindedDatas;
         //console.log(httpContext.path.params)
+        modifiedDatas.sort((a, b) => a.Id > b.Id ? 1 : -1);
 
-        modifiedDatas = this.Sort(bindedDatas,httpContext);
+
+        modifiedDatas = this.FilterByName(modifiedDatas,httpContext);
         modifiedDatas = this.Fields(modifiedDatas,httpContext);
+        modifiedDatas = this.Sort(modifiedDatas,httpContext);
         modifiedDatas = this.Limit(modifiedDatas,httpContext);
-        
+       
+
+
        return modifiedDatas;
+    }
+
+
+    static FilterByName(bindedDatas,httpContext){
+
+      console.log(httpContext.path.params);
+      var dataToReturn=[];
+
+      //for(let i=0;i<Object.keys(httpContext.path.params).length;i++){
+       // if(Object.keys(httpContext.path.params)[i] != "limit" ||Object.keys(httpContext.path.params)[i] != "offset" ||
+       // Object.keys(httpContext.path.params)[i] != "fields" || Object.keys(httpContext.path.params)[i] != "sort")
+      //  {
+
+      //  }
+      //}
+
+      console.log(Object.keys(httpContext.path.params)[0]);
+
+      //httpContext.path.params.forEach(element => {
+      //  console.log(element);
+      //});
+      return bindedDatas;
     }
 
 
@@ -22,12 +49,20 @@ export default class CollectionFilter {
       if(httpContext.path.params != undefined){
         if(httpContext.path.params["limit"] != undefined && httpContext.path.params["offset"] != undefined){
 
-        
+          let limit =httpContext.path.params["limit"];
+          let offset =httpContext.path.params["offset"];
+          let startIndex = limit*offset;
 
-           
+          var dataToReturn=[];
+
+          for(let i=startIndex;i<parseInt(startIndex)+parseInt(limit);i++){
+            dataToReturn.push(bindedDatas[i]);
+          }
+
+          return dataToReturn;
         }
       }
-        return bindedDatas
+      return bindedDatas;
     }
 
 
@@ -47,7 +82,8 @@ export default class CollectionFilter {
             }
 
 
-            //Doit enelever les doublons
+            
+            // Doit enlever les doublons
 
            
         }
