@@ -82,13 +82,27 @@ export default class CollectionFilter {
             }
 
 
-            
-            // Doit enlever les doublons
+            //Remove duplicate
+            const seen = new Set();
 
+            const filteredArr = bindedDatas.filter(element => {
+              let info ="";
+              for(let i=0;i<tabOfFields.length;i++){
+                info =info+element[tabOfFields[i]];
+              }
+              const duplicate = seen.has(info);
+              seen.add(info);
+              return !duplicate;
+            });
+
+
+
+            return filteredArr;
            
         }
+        
       }
-        return bindedDatas
+      return bindedDatas;
     }
 
   static Sort(modifiedDatas, httpContext) {
