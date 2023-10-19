@@ -11,10 +11,10 @@ export default class CollectionFilter {
         //console.log(httpContext.path.params)
         modifiedDatas.sort((a, b) => a.Id > b.Id ? 1 : -1);
 
-
-        modifiedDatas = this.FilterByName(modifiedDatas,httpContext);
+        //modifiedDatas = this.FilterByName(modifiedDatas,httpContext);
         modifiedDatas = this.Fields(modifiedDatas,httpContext);
         modifiedDatas = this.Sort(modifiedDatas,httpContext);
+
         modifiedDatas = this.Limit(modifiedDatas,httpContext);
        
 
@@ -23,10 +23,10 @@ export default class CollectionFilter {
     }
 
 
-    static FilterByName(bindedDatas,httpContext){
+    //static FilterByName(bindedDatas,httpContext){
 
-      console.log(httpContext.path.params);
-      var dataToReturn=[];
+     // console.log(httpContext.path.params);
+     // var dataToReturn=[];
 
       //for(let i=0;i<Object.keys(httpContext.path.params).length;i++){
        // if(Object.keys(httpContext.path.params)[i] != "limit" ||Object.keys(httpContext.path.params)[i] != "offset" ||
@@ -36,13 +36,13 @@ export default class CollectionFilter {
       //  }
       //}
 
-      console.log(Object.keys(httpContext.path.params)[0]);
+      //console.log(Object.keys(httpContext.path.params)[0]);
 
       //httpContext.path.params.forEach(element => {
       //  console.log(element);
       //});
-      return bindedDatas;
-    }
+     // return bindedDatas;
+    //}
 
 
     static Limit(bindedDatas,httpContext){
@@ -111,6 +111,7 @@ export default class CollectionFilter {
       
         if(httpContext.path.params["sort"] != undefined){
             let valueSort =httpContext.path.params["sort"];
+            console.log(valueSort);
             if(valueSort.includes(",desc"))
             {
                 valueSort = valueSort.replace(',desc','');
