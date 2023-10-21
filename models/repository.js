@@ -146,6 +146,7 @@ export default class Repository {
         }
 
 
+
         //reste optimisation et enlever doublons
         if (objectsList) {
             for (let data of objectsList) {
@@ -195,15 +196,21 @@ export default class Repository {
             };
         }
 
+        //Remove duplicates
+        const seen = new Set();
+        let tabOfAllFields = Object.keys(bindedDatas[0]);
+
+         bindedDatas = bindedDatas.filter(element => {
+          let info ="";
+          for(let i=0;i<tabOfAllFields.length;i++){
+            info =info+element[tabOfAllFields[i]];
+          }
+          const duplicate = seen.has(info);
+          seen.add(info);
+          return !duplicate;
+        });
 
 
-        //for(let i=0;i<Object.keys(HttpContext.path.params).length;i++){
-        //    if(Object.keys(HttpContext.path.params)[i] != "limit" ||Object.keys(HttpContext.path.params)[i] != "offset" ||
-        //    Object.keys(HttpContext.path.params)[i] != "fields" || Object.keys(HttpContext.path.params)[i] != "sort")
-        //    {
-        //        
-        //    }
-        //}
 
         bindedDatas = CollectionFilter.Filter(bindedDatas, HttpContext);
         return bindedDatas;
@@ -217,6 +224,11 @@ export default class Repository {
         }
         return null;
     }
+
+    filterInt = function (value) {
+        if (/^(-|\+)?(\d+|Infinity)$/.test(value)) return Number(value);
+        return NaN;
+      };
 
     removeByIndex(indexToDelete) {
         if (indexToDelete.length > 0) {

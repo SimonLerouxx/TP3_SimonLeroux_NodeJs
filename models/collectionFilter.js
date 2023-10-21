@@ -23,26 +23,7 @@ export default class CollectionFilter {
     }
 
 
-    //static FilterByName(bindedDatas,httpContext){
 
-     // console.log(httpContext.path.params);
-     // var dataToReturn=[];
-
-      //for(let i=0;i<Object.keys(httpContext.path.params).length;i++){
-       // if(Object.keys(httpContext.path.params)[i] != "limit" ||Object.keys(httpContext.path.params)[i] != "offset" ||
-       // Object.keys(httpContext.path.params)[i] != "fields" || Object.keys(httpContext.path.params)[i] != "sort")
-      //  {
-
-      //  }
-      //}
-
-      //console.log(Object.keys(httpContext.path.params)[0]);
-
-      //httpContext.path.params.forEach(element => {
-      //  console.log(element);
-      //});
-     // return bindedDatas;
-    //}
 
 
     static Limit(bindedDatas,httpContext){
@@ -111,7 +92,6 @@ export default class CollectionFilter {
       
         if(httpContext.path.params["sort"] != undefined){
             let valueSort =httpContext.path.params["sort"];
-            console.log(valueSort);
             if(valueSort.includes(",desc"))
             {
                 valueSort = valueSort.replace(',desc','');
