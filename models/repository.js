@@ -147,7 +147,6 @@ export default class Repository {
 
 
 
-        //reste optimisation et enlever doublons
         if (objectsList) {
             for (let data of objectsList) {
 
@@ -160,27 +159,63 @@ export default class Repository {
                             if(HttpContext.path.params[Object.keys(HttpContext.path.params)[i]].includes('*')){
                                 if(HttpContext.path.params[Object.keys(HttpContext.path.params)[i]].startsWith("*") && HttpContext.path.params[Object.keys(HttpContext.path.params)[i]].endsWith("*")){
                                     let value = HttpContext.path.params[Object.keys(HttpContext.path.params)[i]].replaceAll("*", "");
-                                    if (data[Object.keys(HttpContext.path.params)[i]].includes(value)) {
-                                        bindedDatas.push(this.model.bindExtraData(data));
+                                    
+                                    if(typeof(value) == String && type0f(data[Object.keys(HttpContext.path.params)[i]]) ==String){
+                                        if (data[Object.keys(HttpContext.path.params)[i]].toUpperCase().includes(value.toUpperCase())) {
+                                            bindedDatas.push(this.model.bindExtraData(data));
+                                        }
                                     }
+                                    else{
+                                        if (data[Object.keys(HttpContext.path.params)[i]].includes(value)) {
+                                            bindedDatas.push(this.model.bindExtraData(data));
+                                        }
+                                    }
+                                    
+                                   
                                 }
                                 else if(HttpContext.path.params[Object.keys(HttpContext.path.params)[i]].startsWith("*")){
                                     let value = HttpContext.path.params[Object.keys(HttpContext.path.params)[i]].replace("*", "");
-                                    if (data[Object.keys(HttpContext.path.params)[i]].startsWith(value)) {
-                                        bindedDatas.push(this.model.bindExtraData(data));
+
+                                    if(typeof(value) == String && type0f(data[Object.keys(HttpContext.path.params)[i]]) ==String){
+                                        if (data[Object.keys(HttpContext.path.params)[i]].toUpperCase().startsWith(value.toUpperCase())) {
+                                            bindedDatas.push(this.model.bindExtraData(data));
+                                        }
                                     }
+                                    else{
+                                        if (data[Object.keys(HttpContext.path.params)[i]].startsWith(value)) {
+                                            bindedDatas.push(this.model.bindExtraData(data));
+                                        }
+                                    }
+
+                                  
                                 }
                                 else if(HttpContext.path.params[Object.keys(HttpContext.path.params)[i]].endsWith("*")){
-                                    let value = HttpContext.path.params[Object.keys(HttpContext.path.params)[i]].replace("*", "");
-                                    if (data[Object.keys(HttpContext.path.params)[i]].endsWith(value)) {
-                                        bindedDatas.push(this.model.bindExtraData(data));
+                                    if(typeof(value) == String && type0f(data[Object.keys(HttpContext.path.params)[i]]) ==String){
+                                        if (data[Object.keys(HttpContext.path.params)[i]].toUpperCase().endsWith(value.toUpperCase())) {
+                                            bindedDatas.push(this.model.bindExtraData(data));
+                                        }
                                     }
+                                    else{
+                                        if (data[Object.keys(HttpContext.path.params)[i]].endsWith(value)) {
+                                            bindedDatas.push(this.model.bindExtraData(data));
+                                        }
+                                    }
+                                    
                                 }
                             }
                             else{
-                                if (data[Object.keys(HttpContext.path.params)[i]] == HttpContext.path.params[Object.keys(HttpContext.path.params)[i]]) {
-                                    bindedDatas.push(this.model.bindExtraData(data));
+
+                                if(typeof(value) == String && type0f(data[Object.keys(HttpContext.path.params)[i]]) ==String){
+                                    if (data[Object.keys(HttpContext.path.params)[i]].toUpperCase() == HttpContext.path.params[Object.keys(HttpContext.path.params)[i]].toUpperCase()) {
+                                        bindedDatas.push(this.model.bindExtraData(data));
+                                    }
                                 }
+                                else{
+                                    if (data[Object.keys(HttpContext.path.params)[i]] == HttpContext.path.params[Object.keys(HttpContext.path.params)[i]]) {
+                                        bindedDatas.push(this.model.bindExtraData(data));
+                                    }
+                                }
+                               
                             }
                             
                             
